@@ -1,9 +1,9 @@
 package com.sse.iMusic.Models;
 
 public class Style {
-    public int styleId;
+    public Integer styleId;
     public String styleName;
-    public Style(int _id,String _name)
+    public Style(Integer _id,String _name)
     {
         this.styleId=_id;
         this.styleName=_name;

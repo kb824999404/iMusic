@@ -1,14 +1,14 @@
 package com.sse.iMusic.Models;
 
 public class Task {
-    public int taskId;
-    public int userId;
-    public int taskType;
+    public Integer taskId;
+    public Integer userId;
+    public Integer taskType;
     public String description;
-    public int requiredStyleId;
-    public int requiredInstrumentId;
-    public int requiredSceneId;
-    public int requiredLength;
+    public Integer requiredStyleId;
+    public Integer requiredInstrumentId;
+    public Integer requiredSceneId;
+    public Integer requiredLength;
     public String publishTime;
 
 }

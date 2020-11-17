@@ -12,6 +12,7 @@ import java.util.Map;
 @RequestMapping("/message")
 class MessageController {
 
+    // TODO
     @PostMapping("/getMessage")
     @ResponseBody
     public Map<String, Object> getMessage(@RequestParam("senderId") int senderId,

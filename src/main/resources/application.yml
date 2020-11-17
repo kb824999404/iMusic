@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    url: jdbc:mysql://120.25.145.41:3306/imusic
+    username: root
+    password: imusic-sql
+    driver-class-name: com.mysql.jdbc.Driver

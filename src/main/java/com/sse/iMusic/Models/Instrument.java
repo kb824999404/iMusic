@@ -1,7 +1,7 @@
 package com.sse.iMusic.Models;
 
 public class Instrument {
-    public int instrumentId;
+    public Integer instrumentId;
     public String instrumentName;
 
 }

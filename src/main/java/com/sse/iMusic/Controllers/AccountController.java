@@ -1,6 +1,9 @@
 package com.sse.iMusic.Controllers;
 
+import com.sse.iMusic.Models.User;
+import com.sse.iMusic.Service.UserService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 import java.util.ArrayList;
@@ -12,15 +15,32 @@ import java.util.Map;
 @RequestMapping("/account")
 class AccountController {
 
+    @Autowired
+    private UserService userService;
+
     @PostMapping("/login")
     @ResponseBody
     public Map<String, Object> login(@RequestParam("userId") int userId,
         @RequestParam("password") String password){
 
         Map<String, Object> result = new HashMap<>();
-        result.put("status","true");
-        result.put("userId",userId);
-        result.put("password",password);
+        User user=userService.getUserByID(userId);
+        if(user!=null)
+        {
+            if(user.password.equals(password)){
+                result.put("status","true");
+            }
+            else{
+                result.put("status","false");
+                result.put("message","密码错误！");
+            }
+        }
+        else
+        {
+            result.put("status","false");
+            result.put("message","账号不存在！");
+
+        }
 
 
         return result;
@@ -33,10 +53,18 @@ class AccountController {
         @RequestParam("userType") int userType){
 
         Map<String, Object> result = new HashMap<>();
-        result.put("status","true");
-        result.put("username",username);
-        result.put("password",password);
-        result.put("userType",userType);
+
+        ArrayList<User> users=userService.getAllUser();
+        int userId=users.size()+1;
+        int resultCode=userService.addUser(userId,username,password,"Default-Avatar",userType);
+        if(resultCode==1){
+            result.put("status","true");
+            result.put("userId",userId);
+        }
+        else{
+            result.put("status","false");
+            result.put("message","注册失败！");
+        }
 
         return result;
     }
@@ -46,23 +74,45 @@ class AccountController {
     public Map<String, Object> getUserInfo(@RequestParam("userId") int userId){
 
         Map<String, Object> result = new HashMap<>();
-        result.put("status","true");
-        result.put("userId",userId);
+        User user=userService.getUserByID(userId);
+        if(user!=null)
+        {
+            result.put("status","true");
+            result.put("userInfo",user);
+        }
+        else
+        {
+            result.put("status","false");
+            result.put("message","账号不存在！");
+
+        }
 
         return result;
     }
 
+    // TODO
     @PostMapping("/getStarMusic")
     @ResponseBody
     public Map<String, Object> getStarMusic(@RequestParam("userId") int userId){
 
         Map<String, Object> result = new HashMap<>();
-        result.put("status","true");
-        result.put("userId",userId);
+        User user=userService.getUserByID(userId);
+        if(user!=null)
+        {
+            result.put("status","true");
+            result.put("userInfo",user);
+        }
+        else
+        {
+            result.put("status","false");
+            result.put("message","账号不存在！");
+
+        }
 
         return result;
     }
 
+    // TODO
     @PostMapping("/getPurchasedMusic")
     @ResponseBody
     public Map<String, Object> getPurchasedMusic(@RequestParam("userId") int userId){
