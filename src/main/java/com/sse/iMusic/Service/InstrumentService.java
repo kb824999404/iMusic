@@ -14,7 +14,7 @@ public class InstrumentService {
     @Autowired
     private InstrumentMapper instrumentMapper;
 
-    public Instrument getUserByID(int instrumentId)
+    public Instrument getInstrumentByID(int instrumentId)
     {
         return instrumentMapper.selectByID(instrumentId);
     }

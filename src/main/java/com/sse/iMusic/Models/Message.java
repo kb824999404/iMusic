@@ -1,8 +1,8 @@
 package com.sse.iMusic.Models;
 
 public class Message {
-    Integer senderId;
-    Integer receiverId;
-    String time;
-    String content;
+    public Integer senderId;
+    public Integer receiverId;
+    public String time;
+    public String content;
 }

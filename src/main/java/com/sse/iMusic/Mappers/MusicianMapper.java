@@ -14,18 +14,15 @@ public interface MusicianMapper {
     @Select("SELECT * from Musician")
     ArrayList<Musician> select();
 
-    @Insert("INSERT INTO Music VALUES (#{musicId},#{musicianId}, #{musicName},#{description},"+
-    "#{styleId}, #{instrumentId}, #{sceneId}, #{length},now(),#{price},#{fileUrl})")
-    int insert(@Param("musicId") Integer musicId,
-    @Param("musicianId") Integer musicianId,
-    @Param("musicName") String musicName, 
-    @Param("description") String description, 
+    @Insert("INSERT INTO Musician VALUES (#{musicianId},#{userId}, #{musicianName},#{description},"+
+    "#{country},#{styleId}, #{instrumentId})")
+    int insert(@Param("musicianId") Integer musicianId,
+    @Param("userId") Integer userId,
+    @Param("musicianName") String musicianName, 
+    @Param("description") String description,
+    @Param("country") String country,
     @Param("styleId") Integer styleId,
-    @Param("instrumentId") Integer instrumentId,
-    @Param("sceneId") Integer sceneId,
-    @Param("length") Integer length,
-    @Param("price") Integer price,
-    @Param("fileUrl") String fileUrl);
+    @Param("instrumentId") Integer instrumentId);
 
     @Select("SELECT * from Musician where musicianId = #{musicianId}")
     Musician selectByID(@Param("musicianId")  Integer id);

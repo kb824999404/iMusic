@@ -14,7 +14,7 @@ public class StyleService {
     @Autowired
     private StyleMapper styleMapper;
 
-    public Style getUserByID(int styleId)
+    public Style getStyleByID(int styleId)
     {
         return styleMapper.selectByID(styleId);
     }

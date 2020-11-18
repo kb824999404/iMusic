@@ -17,7 +17,7 @@ public interface InstrumentMapper {
     @Insert("INSERT INTO Instrument VALUES (#{instrumentId},#{instrumentName}")
     int insert(@Param("instrumentId") Integer instrumentId,@Param("instrumentName") String instrumentName);
 
-    @Select("SELECT * from Scene where instrumentId=#{instrumentId}")
+    @Select("SELECT * from Instrument where instrumentId=#{instrumentId}")
     Instrument selectByID(@Param("instrumentId") Integer instrumentId);
 
 }

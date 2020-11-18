@@ -24,6 +24,15 @@ public class MusicianService {
         return musicianMapper.select();
     }
 
+    public int addMusician(Integer musicianId,Integer userId,
+    String musicianName,String description,
+    String country,Integer styleId,Integer instrumentId)
+    {
+        return musicianMapper.insert(musicianId,userId,
+        musicianName,description,
+        country,styleId,instrumentId);
+    }
+
 
 
     public int deleteMusician(int musicianId)

@@ -14,7 +14,7 @@ public class SceneService {
     @Autowired
     private SceneMapper sceneMapper;
 
-    public Scene getUserByID(int sceneId)
+    public Scene getSceneByID(int sceneId)
     {
         return sceneMapper.selectByID(sceneId);
     }

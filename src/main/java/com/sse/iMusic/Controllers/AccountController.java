@@ -1,10 +1,14 @@
 package com.sse.iMusic.Controllers;
 
-import com.sse.iMusic.Models.User;
-import com.sse.iMusic.Service.UserService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.sse.iMusic.Models.User;
+import com.sse.iMusic.Service.UserService;
+import com.sse.iMusic.Models.StarMusic;
+import com.sse.iMusic.Service.StarMusicService;
+import com.sse.iMusic.Models.PurchaseMusic;
+import com.sse.iMusic.Service.PurchaseMusicService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,6 +21,10 @@ class AccountController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private StarMusicService starMusicService;
+    @Autowired
+    private PurchaseMusicService purchaseMusicService;
 
     @PostMapping("/login")
     @ResponseBody
@@ -90,7 +98,6 @@ class AccountController {
         return result;
     }
 
-    // TODO
     @PostMapping("/getStarMusic")
     @ResponseBody
     public Map<String, Object> getStarMusic(@RequestParam("userId") int userId){
@@ -99,8 +106,9 @@ class AccountController {
         User user=userService.getUserByID(userId);
         if(user!=null)
         {
+            ArrayList<StarMusic> starMusics=starMusicService.getStarMusicByUserID(userId);
             result.put("status","true");
-            result.put("userInfo",user);
+            result.put("starMusics",starMusics);
         }
         else
         {
@@ -112,14 +120,24 @@ class AccountController {
         return result;
     }
 
-    // TODO
-    @PostMapping("/getPurchasedMusic")
+    @PostMapping("/getPurchaseMusic")
     @ResponseBody
     public Map<String, Object> getPurchasedMusic(@RequestParam("userId") int userId){
 
         Map<String, Object> result = new HashMap<>();
-        result.put("status","true");
-        result.put("userId",userId);
+        User user=userService.getUserByID(userId);
+        if(user!=null)
+        {
+            ArrayList<PurchaseMusic> purchaseMusics=purchaseMusicService.getPurchaseMusicByUserID(userId);
+            result.put("status","true");
+            result.put("purchaseMusics",purchaseMusics);
+        }
+        else
+        {
+            result.put("status","false");
+            result.put("message","账号不存在！");
+
+        }
 
         return result;
     }

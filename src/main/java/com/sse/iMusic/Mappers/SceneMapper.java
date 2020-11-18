@@ -17,7 +17,7 @@ public interface SceneMapper {
     @Insert("INSERT INTO Scene VALUES (#{sceneId},#{sceneName}")
     int insert(@Param("sceneId") Integer sceneId,@Param("sceneName") String sceneName);
 
-    @Select("SELECT * from Scene where styleId=#{sceneId}")
+    @Select("SELECT * from Scene where sceneId=#{sceneId}")
     Scene selectByID(@Param("sceneId") Integer sceneId);
 
 }
