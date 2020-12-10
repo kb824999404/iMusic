@@ -4,3 +4,13 @@ spring:
     username: root
     password: imusic-sql
     driver-class-name: com.mysql.jdbc.Driver
+  resources:
+      static-locations: classpath:static/,file:${spring.servlet.multipart.location}
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+  
+
+server:
+  port: 8080

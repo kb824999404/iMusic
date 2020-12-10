@@ -1,5 +1,6 @@
 package com.sse.iMusic.Controllers;
 
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,9 +19,15 @@ import com.sse.iMusic.Service.StarMusicService;
 import com.sse.iMusic.Models.PurchaseMusic;
 import com.sse.iMusic.Service.PurchaseMusicService;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.UUID;
 
 
 @RestController
@@ -246,6 +253,44 @@ class MusicController {
         }
 
 
+        return result;
+    }
+
+    @PostMapping("/uploadMusic")
+    @ResponseBody
+    public Map<String, Object> upload(@RequestParam("file") MultipartFile file) {
+
+        Map<String, Object> result = new HashMap<>();
+        if (file.isEmpty()) {
+            result.put("status","false");
+            result.put("message","找不到上传的文件！");
+            return result;
+        }
+
+        String fileName = file.getOriginalFilename();
+
+        
+
+
+
+        try {
+            File path = new File(ResourceUtils.getURL("classpath:").getPath());
+            System.out.println(path.getAbsolutePath());
+            File upload = new File(path.getAbsolutePath(), "static/uploadMusic/");
+            if (!upload.exists()) upload.mkdirs();
+            String uploadPath = upload + "\\";
+            String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+
+
+            file.transferTo(new File( uploadPath+uuid+fileName));
+            result.put("status","true");
+            result.put("fileUrl",uuid+fileName);
+            return result;
+        } catch (IOException e) {
+            
+        }
+        result.put("status","false");
+        result.put("message","上传失败！");
         return result;
     }
 

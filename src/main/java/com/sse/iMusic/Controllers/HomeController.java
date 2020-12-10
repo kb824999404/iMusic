@@ -59,7 +59,7 @@ class HomeController {
         ArrayList<Music> musics=musicService.getAllMusicSortByTime();
 
         result.put("status","true");
-        result.put("recommendMusic",musics);
+        result.put("newMusic",musics);
 
         return result;
     }

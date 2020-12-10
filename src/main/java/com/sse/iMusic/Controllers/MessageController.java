@@ -43,8 +43,21 @@ class MessageController {
         else
         {
             ArrayList<Message> messages=messageService.getMessageByIDSortByTime(senderId,receiverId);
+            ArrayList<Object> resultMessages=new ArrayList<Object>();
+            for(Message message :messages){
+                Map<String, Object> m=new HashMap<>();
+                m.put("time", message.time);
+                m.put("content", message.content);
+                if(message.senderId==senderId){
+                    m.put("sender", 0);
+                }
+                else{
+                    m.put("sender", 1);
+                }
+                resultMessages.add(m);
+            }
             result.put("status","true");
-            result.put("messages",messages);
+            result.put("messages",resultMessages);
 
         }
 
