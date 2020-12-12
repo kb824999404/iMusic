@@ -24,6 +24,11 @@ public class MusicianService {
         return musicianMapper.select();
     }
 
+    public ArrayList<Musician> getAllCheckedMusician()
+    {
+        return musicianMapper.selectAllChecked();
+    }
+
     public int addMusician(Integer musicianId,Integer userId,
     String musicianName,String description,
     String country,Integer styleId,Integer instrumentId)
@@ -38,6 +43,11 @@ public class MusicianService {
     public int deleteMusician(int musicianId)
     {
         return musicianMapper.deleteByID(musicianId);
+    }
+
+    public int reviewMusician(int musicianId,int checked)
+    {
+        return musicianMapper.updateCheckdByID(musicianId,checked);
     }
 
 

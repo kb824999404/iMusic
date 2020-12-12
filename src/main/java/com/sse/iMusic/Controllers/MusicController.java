@@ -58,7 +58,7 @@ class MusicController {
         @RequestParam("price") int price){
 
         Map<String, Object> result = new HashMap<>();
-        ArrayList<Music> musics=musicService.getAllMusic();
+        ArrayList<Music> musics=musicService.getAllCheckedMusic();
         ArrayList<Music> resultMusics=new ArrayList<Music>();
         Style style=styleService.getStyleByID(styleId);
         Instrument instrument=instrumentService.getInstrumentByID(instrumentId);
@@ -238,7 +238,15 @@ class MusicController {
         else
         {
             ArrayList<Music> musics=musicService.getAllMusic();
-            int musicId=musics.size()+1;
+            int musicId;
+            if(musics.size()==0)
+            {
+                musicId=1;
+            }
+            else
+            {
+                musicId=musics.get(musics.size()-1).musicId +1;
+            }
     
             int resultCode=musicService.addMusic(musicId,musicianId,musicName,description,styleId,
             instrumentId,sceneId,length,price,fileUrl);

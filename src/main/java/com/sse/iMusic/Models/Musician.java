@@ -8,5 +8,6 @@ public class Musician {
     public String country;
     public Integer favMusicStyle;
     public Integer favInstrument;
+    public Integer checked;
 
 }

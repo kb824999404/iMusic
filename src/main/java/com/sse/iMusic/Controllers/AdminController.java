@@ -125,4 +125,79 @@ class AdminController {
 
         return result;
     }
+
+    @PostMapping("/deleteMusic")
+    @ResponseBody
+    public Map<String, Object> deleteMusic(@RequestParam("musicId") int musicId){
+
+        Map<String, Object> result = new HashMap<>();
+        int resultCode=musicService.deleteMusic(musicId);
+
+        if(resultCode==1){
+            result.put("status","true");
+        }
+        else{
+            result.put("status","false");
+            result.put("message","删除音乐失败！");
+        }
+
+        return result;
+    }
+
+    @PostMapping("/reviewMusic")
+    @ResponseBody
+    public Map<String, Object> reviewMusic(@RequestParam("musicId") int musicId,
+    @RequestParam("checked") int checked){
+
+        Map<String, Object> result = new HashMap<>();
+        int resultCode=musicService.reviewMusic(musicId, checked);
+
+        if(resultCode==1){
+            result.put("status","true");
+        }
+        else{
+            result.put("status","false");
+            result.put("message","审核音乐失败！");
+        }
+
+        return result;
+    }
+
+    @PostMapping("/deleteMusician")
+    @ResponseBody
+    public Map<String, Object> deleteMusician(@RequestParam("musicianId") int musicianId){
+
+        Map<String, Object> result = new HashMap<>();
+        int resultCode=musicianService.deleteMusician(musicianId);
+
+        if(resultCode==1){
+            result.put("status","true");
+        }
+        else{
+            result.put("status","false");
+            result.put("message","删除音乐人失败！");
+        }
+
+        return result;
+    }
+
+    
+    @PostMapping("/reviewMusician")
+    @ResponseBody
+    public Map<String, Object> reviewMusician(@RequestParam("musicianId") int musicianId,
+    @RequestParam("checked") int checked){
+
+        Map<String, Object> result = new HashMap<>();
+        int resultCode=musicianService.reviewMusician(musicianId, checked);
+
+        if(resultCode==1){
+            result.put("status","true");
+        }
+        else{
+            result.put("status","false");
+            result.put("message","认证音乐人失败！");
+        }
+
+        return result;
+    }
 }

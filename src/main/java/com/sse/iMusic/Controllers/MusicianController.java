@@ -40,7 +40,7 @@ class MusicianController {
     @RequestParam("instrumentId") int instrumentId){
 
         Map<String, Object> result = new HashMap<>();
-        ArrayList<Musician> musicians=musicianService.getAllMusician();
+        ArrayList<Musician> musicians=musicianService.getAllCheckedMusician();
         ArrayList<Musician> resultMusicians=new ArrayList<Musician>();
         Style style=styleService.getStyleByID(styleId);
         Instrument instrument=instrumentService.getInstrumentByID(instrumentId);
@@ -137,7 +137,15 @@ class MusicianController {
 
         Map<String, Object> result = new HashMap<>();
         ArrayList<Musician> musicians=musicianService.getAllMusician();
-        int musicianId=musicians.size()+1;
+        int musicianId;
+        if(musicians.size()==0)
+        {
+            musicianId=1;
+        }
+        else
+        {
+            musicianId=musicians.get(musicians.size()-1).musicianId +1;
+        }
 
         int resultCode=musicianService.addMusician(musicianId,userId,
         musicianName,description,

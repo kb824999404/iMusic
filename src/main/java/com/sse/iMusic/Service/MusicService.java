@@ -24,6 +24,11 @@ public class MusicService {
         return musicMapper.select();
     }
 
+    public ArrayList<Music> getAllCheckedMusic()
+    {
+        return musicMapper.selectAllChecked();
+    }
+
     public ArrayList<Music> getAllMusicSortByTime()
     {
         ArrayList<Music> musics=musicMapper.select();
@@ -50,6 +55,11 @@ public class MusicService {
     public int deleteMusic(int musicId)
     {
         return musicMapper.deleteByID(musicId);
+    }
+
+    public int reviewMusic(int musicId,int checked)
+    {
+        return musicMapper.updateCheckdByID(musicId,checked);
     }
 
 

@@ -12,6 +12,7 @@ public class Music {
     public String publishTime;
     public Integer price;
     public String fileUrl;
+    public Integer checked;
     public Music(String _musicName,String _description){
         this.musicName=_musicName;
         this.description=_description;

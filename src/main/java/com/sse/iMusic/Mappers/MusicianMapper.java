@@ -14,8 +14,11 @@ public interface MusicianMapper {
     @Select("SELECT * from Musician")
     ArrayList<Musician> select();
 
+    @Select("SELECT * from Musician where checked = 1")
+    ArrayList<Musician> selectAllChecked();
+
     @Insert("INSERT INTO Musician VALUES (#{musicianId},#{userId}, #{musicianName},#{description},"+
-    "#{country},#{styleId}, #{instrumentId})")
+    "#{country},#{styleId}, #{instrumentId},0)")
     int insert(@Param("musicianId") Integer musicianId,
     @Param("userId") Integer userId,
     @Param("musicianName") String musicianName, 
@@ -27,8 +30,9 @@ public interface MusicianMapper {
     @Select("SELECT * from Musician where musicianId = #{musicianId}")
     Musician selectByID(@Param("musicianId")  Integer id);
     
-    @Delete("Delete from Music where musicianId = #{musicianId}")
+    @Delete("Delete from Musician where musicianId = #{musicianId}")
     int deleteByID(@Param("musicianId")  Integer id);  
 
-
+    @Update("Update Musician SET checked = #{checked} where musicianId = #{musicianId}")
+    int updateCheckdByID(@Param("musicianId")  Integer id,@Param("checked")Integer checked);  
 }

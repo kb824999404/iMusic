@@ -14,8 +14,11 @@ public interface MusicMapper {
     @Select("SELECT * from Music")
     ArrayList<Music> select();
 
+    @Select("SELECT * from Music where checked = 1")
+    ArrayList<Music> selectAllChecked();
+
     @Insert("INSERT INTO Music VALUES (#{musicId},#{musicianId}, #{musicName},#{description},"+
-    "#{styleId}, #{instrumentId}, #{sceneId}, #{length},now(),#{price},#{fileUrl})")
+    "#{styleId}, #{instrumentId}, #{sceneId}, #{length},now(),#{price},#{fileUrl},0)")
     int insert(@Param("musicId") Integer musicId,
     @Param("musicianId") Integer musicianId,
     @Param("musicName") String musicName, 
@@ -33,5 +36,6 @@ public interface MusicMapper {
     @Delete("Delete from Music where musicId = #{musicId}")
     int deleteByID(@Param("musicId")  Integer id);  
 
-
+    @Update("Update Music SET checked = #{checked} where musicId = #{musicId}")
+    int updateCheckdByID(@Param("musicId")  Integer id,@Param("checked")Integer checked);  
 }
