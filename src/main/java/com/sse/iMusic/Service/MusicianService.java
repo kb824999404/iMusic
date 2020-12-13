@@ -3,6 +3,7 @@ package com.sse.iMusic.Service;
 
 import com.sse.iMusic.Mappers.MusicianMapper;
 import com.sse.iMusic.Models.Musician;
+import com.sse.iMusic.Models.Music;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class MusicianService {
         return musicianMapper.select();
     }
 
+
     public ArrayList<Musician> getAllCheckedMusician()
     {
         return musicianMapper.selectAllChecked();
@@ -31,11 +33,11 @@ public class MusicianService {
 
     public int addMusician(Integer musicianId,Integer userId,
     String musicianName,String description,
-    String country,Integer styleId,Integer instrumentId)
+    Integer  countryId,Integer styleId,Integer instrumentId)
     {
         return musicianMapper.insert(musicianId,userId,
         musicianName,description,
-        country,styleId,instrumentId);
+        countryId,styleId,instrumentId);
     }
 
 

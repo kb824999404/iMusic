@@ -13,6 +13,8 @@ import com.sse.iMusic.Models.Scene;
 import com.sse.iMusic.Service.SceneService;
 import com.sse.iMusic.Models.Instrument;
 import com.sse.iMusic.Service.InstrumentService;
+import com.sse.iMusic.Models.Country;
+import com.sse.iMusic.Service.CountryService;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,41 +34,31 @@ class MusicianController {
     private SceneService sceneService;
     @Autowired
     private InstrumentService instrumentService;
+    @Autowired
+    private CountryService countryService;
 
     @PostMapping("/getAllMusician")
     @ResponseBody
-    public Map<String, Object> getAllMusician(@RequestParam("country") String country,
+    public Map<String, Object> getAllMusician(@RequestParam("countryId") int countryId,
     @RequestParam("styleId") int styleId,
     @RequestParam("instrumentId") int instrumentId){
 
         Map<String, Object> result = new HashMap<>();
         ArrayList<Musician> musicians=musicianService.getAllCheckedMusician();
         ArrayList<Musician> resultMusicians=new ArrayList<Musician>();
-        Style style=styleService.getStyleByID(styleId);
-        Instrument instrument=instrumentService.getInstrumentByID(instrumentId);
 
-        if(style==null)
-        {
-            result.put("status","false");
-            result.put("message","该风格不存在！");
+
+        for(Musician musician:musicians){
+            if(styleId!=-1&&musician.favMusicStyle!=styleId)
+            continue;
+            if(instrumentId!=-1&&musician.favInstrument!=instrumentId)
+            continue;
+            if(countryId!=-1&&musician.countryId!=countryId)
+            continue;
+            resultMusicians.add(musician);
         }
-        else if(instrument==null)
-        {
-            result.put("status","false");
-            result.put("message","该乐器不存在！"); 
-        }
-        else
-        {
-            for(Musician musician:musicians){
-                if(musician.favMusicStyle==styleId&&
-                musician.favInstrument==instrumentId&&
-                musician.country.equals(country)){
-                    resultMusicians.add(musician);
-                }
-            }
-            result.put("status","true");
-            result.put("musicians",resultMusicians);
-        }
+        result.put("status","true");
+        result.put("musicians",resultMusicians);
 
 
         return result;
@@ -130,7 +122,7 @@ class MusicianController {
     public Map<String, Object> applyMusician(@RequestParam("userId") Integer userId,
     @RequestParam("musicianName") String musicianName, 
     @RequestParam("description") String description,
-    @RequestParam("country") String country,
+    @RequestParam("countryId") Integer countryId,
     @RequestParam("favMusicStyle") Integer styleId,
     @RequestParam("favInstrument") Integer instrumentId
     ){
@@ -149,7 +141,7 @@ class MusicianController {
 
         int resultCode=musicianService.addMusician(musicianId,userId,
         musicianName,description,
-        country,styleId,instrumentId);
+        countryId,styleId,instrumentId);
 
         if(resultCode==1){
             result.put("status","true");
@@ -158,6 +150,18 @@ class MusicianController {
             result.put("status","false");
             result.put("message","申请音乐人认证失败！");
         }
+
+        return result;
+    }
+
+    @PostMapping("/getAllCountry")
+    @ResponseBody
+    public Map<String, Object> getAllCountry(){
+
+        Map<String, Object> result = new HashMap<>();
+        ArrayList<Country> countrys=countryService.getAllCountry();
+        result.put("status","true");
+        result.put("countrys",countrys);
 
         return result;
     }

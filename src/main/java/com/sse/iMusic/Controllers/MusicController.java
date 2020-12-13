@@ -55,42 +55,49 @@ class MusicController {
         @RequestParam("instrumentId") int instrumentId,
         @RequestParam("sceneId") int sceneId,
         @RequestParam("length") int length,
-        @RequestParam("price") int price){
+        @RequestParam("searchKey") ArrayList<String> searchKey){
 
         Map<String, Object> result = new HashMap<>();
         ArrayList<Music> musics=musicService.getAllCheckedMusic();
         ArrayList<Music> resultMusics=new ArrayList<Music>();
-        Style style=styleService.getStyleByID(styleId);
-        Instrument instrument=instrumentService.getInstrumentByID(instrumentId);
-        Scene scene=sceneService.getSceneByID(sceneId);
 
-        if(style==null)
-        {
-            result.put("status","false");
-            result.put("message","该风格不存在！");
+        double[] minLens={0,0.5,1,2,3};
+        double[] maxLens={0.5,1,2,3,100};
+        int minLen=0,maxLen=0;
+        if(length!=-1){
+            minLen=(int)(minLens[length]*60);
+            maxLen=(int)(maxLens[length]*60);
         }
-        else if(instrument==null)
+
+        
+        for(Music music:musics)
         {
-            result.put("status","false");
-            result.put("message","该乐器不存在！"); 
-        }
-        else if(scene==null)
-        {
-            result.put("status","false");
-            result.put("message","该场景不存在！");
-        }
-        else
-        {
-            for(Music music:musics){
-                if(music.styleId==styleId&&music.instrumentId==instrumentId&&
-                music.sceneId==sceneId&&music.price<=price&&music.length<=length){
-                    resultMusics.add(music);
+            if(styleId!=-1&&music.styleId!=styleId)
+                continue;
+            if(instrumentId!=-1&&music.instrumentId!=instrumentId)
+                continue;
+            if(sceneId!=-1&&music.sceneId!=sceneId)
+                continue;
+            if(length!=-1&&!(music.length>minLen&&music.length<=maxLen))
+                continue;
+            if(searchKey.size()>0){
+                boolean hasKey=false;
+                for(String key:searchKey){
+                    if(music.musicName.contains(key)||music.description.contains(key)){
+                        hasKey=true;
+                        break;
+                    }
                 }
+                if(!hasKey) continue;
             }
-            result.put("status","true");
-            result.put("musics",resultMusics);
+            
+            resultMusics.add(music);
         }
 
+        result.put("status","true");
+        result.put("musics",resultMusics);
+        result.put("min",minLen);
+        result.put("max",maxLen);
 
 
         return result;

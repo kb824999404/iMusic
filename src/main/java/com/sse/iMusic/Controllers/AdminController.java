@@ -200,4 +200,22 @@ class AdminController {
 
         return result;
     }
+
+    @PostMapping("/deleteTask")
+    @ResponseBody
+    public Map<String, Object> deleteTask(@RequestParam("taskId") int taskId){
+
+        Map<String, Object> result = new HashMap<>();
+        int resultCode=taskService.deleteTask(taskId);
+
+        if(resultCode==1){
+            result.put("status","true");
+        }
+        else{
+            result.put("status","false");
+            result.put("message","删除任务失败！");
+        }
+
+        return result;
+    }
 }

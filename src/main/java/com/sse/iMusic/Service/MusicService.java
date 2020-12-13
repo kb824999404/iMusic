@@ -3,6 +3,8 @@ package com.sse.iMusic.Service;
 
 import com.sse.iMusic.Mappers.MusicMapper;
 import com.sse.iMusic.Models.Music;
+import com.sse.iMusic.Mappers.MusicianMapper;
+import com.sse.iMusic.Models.Musician;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -13,25 +15,39 @@ import java.util.Comparator;
 public class MusicService {
     @Autowired
     private MusicMapper musicMapper;
+    @Autowired
+    private MusicianMapper musicianMapper;
 
     public Music getMusicByID(int musicId)
     {
-        return musicMapper.selectByID(musicId);
+        Music music=musicMapper.selectByID(musicId);
+        music.musicianName=musicianMapper.selectByID(music.musicianId).musicianName;
+        return music;
+    }
+
+    public ArrayList<Music> getMusicMusicianName(ArrayList<Music> musics)
+    {
+        for(Music music:musics){
+            music.musicianName=musicianMapper.selectByID(music.musicianId).musicianName;
+        }
+        return musics;
     }
 
     public ArrayList<Music> getAllMusic()
     {
-        return musicMapper.select();
+        return getMusicMusicianName(musicMapper.select());
     }
+
+
 
     public ArrayList<Music> getAllCheckedMusic()
     {
-        return musicMapper.selectAllChecked();
+        return getMusicMusicianName(musicMapper.selectAllChecked());
     }
 
     public ArrayList<Music> getAllMusicSortByTime()
     {
-        ArrayList<Music> musics=musicMapper.select();
+        ArrayList<Music> musics=getMusicMusicianName(musicMapper.select());
         Collections.sort(musics, new Comparator<Music>() {
             @Override
             public int compare(Music o1, Music o2) {

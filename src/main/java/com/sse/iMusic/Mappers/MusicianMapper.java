@@ -18,12 +18,12 @@ public interface MusicianMapper {
     ArrayList<Musician> selectAllChecked();
 
     @Insert("INSERT INTO Musician VALUES (#{musicianId},#{userId}, #{musicianName},#{description},"+
-    "#{country},#{styleId}, #{instrumentId},0)")
+    "#{countryId},#{styleId}, #{instrumentId},0)")
     int insert(@Param("musicianId") Integer musicianId,
     @Param("userId") Integer userId,
     @Param("musicianName") String musicianName, 
     @Param("description") String description,
-    @Param("country") String country,
+    @Param("countryId") Integer country,
     @Param("styleId") Integer styleId,
     @Param("instrumentId") Integer instrumentId);
 

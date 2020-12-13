@@ -5,7 +5,7 @@ public class Musician {
     public Integer userId;
     public String musicianName;
     public String description;
-    public String country;
+    public Integer countryId;
     public Integer favMusicStyle;
     public Integer favInstrument;
     public Integer checked;

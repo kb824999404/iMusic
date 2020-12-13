@@ -4,6 +4,7 @@ public class Music {
     public Integer musicId;
     public Integer musicianId;
     public String musicName;
+    public String musicianName;
     public String description;
     public Integer styleId;
     public Integer instrumentId;
