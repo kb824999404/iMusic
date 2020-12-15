@@ -24,6 +24,9 @@ public interface PurchaseMusicMapper {
 
     @Select("SELECT * from PurchaseMusic where userId = #{userId}")
     ArrayList<PurchaseMusic> selectByUserID(@Param("userId")  Integer userId);
+
+    @Select("SELECT * from PurchaseMusic where userId = #{userId} and musicId = #{musicId}")
+    PurchaseMusic selectByTwoID(@Param("userId")  Integer userId,@Param("musicId")  Integer musicId);
     
     @Delete("Delete from PurchaseMusic where musicId = #{musicId} and userId=#{userId}")
     int delete(@Param("musicId")  Integer musicId,@Param("userId") Integer userId);  

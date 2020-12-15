@@ -24,5 +24,10 @@ public interface UserMapper {
     @Delete("Delete from User where userId = #{userId}")
     int deleteByID(@Param("userId")  Integer id);  
 
+    @Update("Update User SET userType = #{userType} where userId = #{userId}")
+    int updateType(@Param("userId")  Integer id,@Param("userType")  Integer type);  
+
+    @Update("Update User SET avatar = #{avatar} where userId = #{userId}")
+    int updateAvatar(@Param("userId")  Integer id,@Param("avatar")  String avatar);  
 
 }

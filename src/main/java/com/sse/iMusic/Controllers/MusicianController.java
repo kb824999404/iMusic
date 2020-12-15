@@ -7,6 +7,8 @@ import com.sse.iMusic.Models.Musician;
 import com.sse.iMusic.Service.MusicianService;
 import com.sse.iMusic.Models.Music;
 import com.sse.iMusic.Service.MusicService;
+import com.sse.iMusic.Models.User;
+import com.sse.iMusic.Service.UserService;
 import com.sse.iMusic.Models.Style;
 import com.sse.iMusic.Service.StyleService;
 import com.sse.iMusic.Models.Scene;
@@ -28,6 +30,8 @@ class MusicianController {
     private MusicianService musicianService;
     @Autowired
     private MusicService musicService;
+    @Autowired
+    private UserService userService;
     @Autowired
     private StyleService styleService;
     @Autowired
@@ -128,6 +132,13 @@ class MusicianController {
     ){
 
         Map<String, Object> result = new HashMap<>();
+        Musician musician=musicianService.getMusicianByUserID(userId);
+        if(musician!=null){
+            result.put("status","false");
+            result.put("message","已有该音乐人！");
+            return result;
+        }
+
         ArrayList<Musician> musicians=musicianService.getAllMusician();
         int musicianId;
         if(musicians.size()==0)
@@ -142,6 +153,8 @@ class MusicianController {
         int resultCode=musicianService.addMusician(musicianId,userId,
         musicianName,description,
         countryId,styleId,instrumentId);
+
+        resultCode*=userService.modifyUserType(userId,2);
 
         if(resultCode==1){
             result.put("status","true");

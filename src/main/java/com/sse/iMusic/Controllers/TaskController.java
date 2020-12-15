@@ -136,10 +136,17 @@ class TaskController {
 
         Map<String, Object> result = new HashMap<>();
         Task task=taskService.getTaskByID(taskId);
-        if(task!=null)
-        {
+        Style style=styleService.getStyleByID(task.requiredStyleId);
+        Instrument instrument=instrumentService.getInstrumentByID(task.requiredInstrumentId);
+        Scene scene=sceneService.getSceneByID(task.requiredSceneId);
+        User user=userService.getUserByID(task.userId);
+        if(style!=null&&instrument!=null&&scene!=null){
             result.put("status","true");
             result.put("taskInfo",task);
+            result.put("style",style);
+            result.put("instrument",instrument);
+            result.put("scene",scene);
+            result.put("user",user);
         }
         else
         {

@@ -24,6 +24,11 @@ public class StarMusicService {
         return starMusicMapper.selectByUserID(userId);
     }
 
+    public StarMusic getStarMusicByTwoID(int userId,int musicId)
+    {
+        return starMusicMapper.selectByTwoID(userId,musicId);
+    }
+
 
     public int addStarMusic(Integer musicId,Integer userId)
     {

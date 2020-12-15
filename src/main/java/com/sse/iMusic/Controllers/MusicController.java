@@ -150,8 +150,23 @@ class MusicController {
         Music music=musicService.getMusicByID(musicId);
         if(music!=null)
         {
-            result.put("status","true");
-            result.put("musicInfo",music);
+            Style style=styleService.getStyleByID(music.styleId);
+            Instrument instrument=instrumentService.getInstrumentByID(music.instrumentId);
+            Scene scene=sceneService.getSceneByID(music.sceneId);
+            if(style!=null&&instrument!=null&&scene!=null){
+                result.put("status","true");
+                result.put("musicInfo",music);
+                result.put("style",style);
+                result.put("instrument",instrument);
+                result.put("scene",scene);
+                
+            }
+            else
+            {
+                result.put("status","false");
+                result.put("message","风格/乐器/场景不存在！");
+            }
+
         }
         else
         {
@@ -183,6 +198,45 @@ class MusicController {
         return result;
     }
 
+    @PostMapping("/unstarMusic")
+    @ResponseBody
+    public Map<String, Object> unstarMusic(@RequestParam("musicId") int musicId,
+        @RequestParam("userId") int userId){
+
+        Map<String, Object> result = new HashMap<>();
+        int resultCode=starMusicService.deleteStarMusic(musicId,userId);
+
+        if(resultCode==1){
+            result.put("status","true");
+        }
+        else{
+            result.put("status","false");
+            result.put("message","取消收藏音乐失败！");
+        }
+
+        return result;
+    }
+
+    @PostMapping("/getStarStatus")
+    @ResponseBody
+    public Map<String, Object> getStarStatus(@RequestParam("musicId") int musicId,
+        @RequestParam("userId") int userId){
+
+        Map<String, Object> result = new HashMap<>();
+        StarMusic starMusic=starMusicService.getStarMusicByTwoID(userId, musicId);
+
+        if(starMusic==null){
+            result.put("status","true");
+            result.put("isStared","false");
+        }
+        else{
+            result.put("status","true");
+            result.put("isStared","true");
+        }
+
+        return result;
+    }
+
     @PostMapping("/purchaseMusic")
     @ResponseBody
     public Map<String, Object> purchaseMusic(@RequestParam("musicId") int musicId,
@@ -198,6 +252,26 @@ class MusicController {
         else{
             result.put("status","false");
             result.put("message","购买音乐失败！");
+        }
+
+        return result;
+    }
+
+    @PostMapping("/getPurchaseStatus")
+    @ResponseBody
+    public Map<String, Object> getPurchaseStatus(@RequestParam("musicId") int musicId,
+        @RequestParam("userId") int userId){
+
+        Map<String, Object> result = new HashMap<>();
+        PurchaseMusic purchaseMusic=purchaseMusicService.getPurchaseMusicByTwoID(userId, musicId);
+
+        if(purchaseMusic==null){
+            result.put("status","true");
+            result.put("isPurchased","false");
+        }
+        else{
+            result.put("status","true");
+            result.put("isPurchased","true");
         }
 
         return result;

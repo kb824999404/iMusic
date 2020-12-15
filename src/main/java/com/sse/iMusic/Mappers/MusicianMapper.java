@@ -29,6 +29,9 @@ public interface MusicianMapper {
 
     @Select("SELECT * from Musician where musicianId = #{musicianId}")
     Musician selectByID(@Param("musicianId")  Integer id);
+
+    @Select("SELECT * from Musician where userId = #{userId}")
+    Musician selectByUserID(@Param("userId")  Integer userId);
     
     @Delete("Delete from Musician where musicianId = #{musicianId}")
     int deleteByID(@Param("musicianId")  Integer id);  

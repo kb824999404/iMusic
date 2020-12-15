@@ -7,6 +7,8 @@ import com.sse.iMusic.Models.Music;
 import com.sse.iMusic.Service.MusicService;
 import com.sse.iMusic.Models.Musician;
 import com.sse.iMusic.Service.MusicianService;
+import com.sse.iMusic.Models.User;
+import com.sse.iMusic.Service.UserService;
 import com.sse.iMusic.Models.Style;
 import com.sse.iMusic.Service.StyleService;
 import com.sse.iMusic.Models.Scene;
@@ -31,6 +33,8 @@ class AdminController {
 
     @Autowired
     private MusicService musicService;
+    @Autowired
+    private UserService userService;
     @Autowired
     private MusicianService musicianService;
     @Autowired
@@ -168,7 +172,10 @@ class AdminController {
     public Map<String, Object> deleteMusician(@RequestParam("musicianId") int musicianId){
 
         Map<String, Object> result = new HashMap<>();
+        Musician musician=musicianService.getMusicianByID(musicianId);
+
         int resultCode=musicianService.deleteMusician(musicianId);
+        resultCode*=userService.modifyUserType(musician.userId,1);
 
         if(resultCode==1){
             result.put("status","true");
@@ -188,7 +195,11 @@ class AdminController {
     @RequestParam("checked") int checked){
 
         Map<String, Object> result = new HashMap<>();
+        Musician musician=musicianService.getMusicianByID(musicianId);
+
         int resultCode=musicianService.reviewMusician(musicianId, checked);
+        resultCode*=userService.modifyUserType(musician.userId,checked+2);
+
 
         if(resultCode==1){
             result.put("status","true");

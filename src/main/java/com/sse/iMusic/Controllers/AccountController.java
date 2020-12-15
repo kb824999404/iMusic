@@ -6,6 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.sse.iMusic.Models.User;
 import com.sse.iMusic.Service.UserService;
+import com.sse.iMusic.Models.Music;
+import com.sse.iMusic.Service.MusicService;
+import com.sse.iMusic.Models.Musician;
+import com.sse.iMusic.Service.MusicianService;
 import com.sse.iMusic.Models.StarMusic;
 import com.sse.iMusic.Service.StarMusicService;
 import com.sse.iMusic.Models.PurchaseMusic;
@@ -28,6 +32,10 @@ class AccountController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private MusicService musicService;
+    @Autowired
+    private MusicianService musicianService;
     @Autowired
     private StarMusicService starMusicService;
     @Autowired
@@ -105,6 +113,27 @@ class AccountController {
         return result;
     }
 
+    @PostMapping("/getMyMusicianInfo")
+    @ResponseBody
+    public Map<String, Object> getMyMusicianInfo(@RequestParam("userId") int userId){
+
+        Map<String, Object> result = new HashMap<>();
+        Musician musician=musicianService.getMusicianByUserID(userId);
+        if(musician!=null)
+        {
+            result.put("status","true");
+            result.put("musicianInfo",musician);
+        }
+        else
+        {
+            result.put("status","false");
+            result.put("message","音乐人不存在！");
+
+        }
+
+        return result;
+    }
+
     @PostMapping("/getStarMusic")
     @ResponseBody
     public Map<String, Object> getStarMusic(@RequestParam("userId") int userId){
@@ -114,6 +143,10 @@ class AccountController {
         if(user!=null)
         {
             ArrayList<StarMusic> starMusics=starMusicService.getStarMusicByUserID(userId);
+            for(StarMusic starMusic:starMusics){
+                Music music=musicService.getMusicByID(starMusic.musicId);
+                starMusic.setMusicData(music);
+            }
             result.put("status","true");
             result.put("starMusics",starMusics);
         }
@@ -136,6 +169,10 @@ class AccountController {
         if(user!=null)
         {
             ArrayList<PurchaseMusic> purchaseMusics=purchaseMusicService.getPurchaseMusicByUserID(userId);
+            for(PurchaseMusic purchaseMusic:purchaseMusics){
+                Music music=musicService.getMusicByID(purchaseMusic.musicId);
+                purchaseMusic.setMusicData(music);
+            }
             result.put("status","true");
             result.put("purchaseMusics",purchaseMusics);
         }
@@ -184,6 +221,26 @@ class AccountController {
         }
         result.put("status","false");
         result.put("message","上传失败！");
+        return result;
+    }
+
+
+    @PostMapping("/modifyAvatar")
+    @ResponseBody
+    public Map<String, Object> modifyAvatar(@RequestParam("userId") Integer userId,
+        @RequestParam("avatar") String avatar){
+
+        Map<String, Object> result = new HashMap<>();
+
+        int resultCode=userService.modifyAvatar(userId, avatar);
+        if(resultCode==1){
+            result.put("status","true");
+        }
+        else{
+            result.put("status","false");
+            result.put("message","修改头像失败！");
+        }
+
         return result;
     }
 

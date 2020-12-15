@@ -24,6 +24,11 @@ public class PurchaseMusicService {
         return purchaseMusicMapper.selectByUserID(userId);
     }
 
+    public PurchaseMusic getPurchaseMusicByTwoID(int userId,int musicId)
+    {
+        return purchaseMusicMapper.selectByTwoID(userId,musicId);
+    }
+
 
     public int addPurchaseMusic(Integer musicId,Integer userId,Integer payedMoney)
     {

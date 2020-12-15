@@ -20,6 +20,11 @@ public class MusicianService {
         return musicianMapper.selectByID(musicianId);
     }
 
+    public Musician getMusicianByUserID(int userId)
+    {
+        return musicianMapper.selectByUserID(userId);
+    }
+
     public ArrayList<Musician> getAllMusician()
     {
         return musicianMapper.select();

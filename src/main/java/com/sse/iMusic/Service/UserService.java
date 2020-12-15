@@ -33,5 +33,16 @@ public class UserService {
         return userMapper.deleteByID(userId);
     }
 
+    public int modifyUserType(int userId,int userType)
+    {
+        return userMapper.updateType(userId,userType);
+    }
+
+    
+    public int modifyAvatar(int userId,String avatar)
+    {
+        return userMapper.updateAvatar(userId,avatar);
+    }
+
 
 }

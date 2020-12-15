@@ -23,6 +23,9 @@ public interface StarMusicMapper {
 
     @Select("SELECT * from StarMusic where userId = #{userId}")
     ArrayList<StarMusic> selectByUserID(@Param("userId")  Integer userId);
+
+    @Select("SELECT * from StarMusic where userId = #{userId} and musicId = #{musicId}")
+    StarMusic selectByTwoID(@Param("userId")  Integer userId,@Param("musicId")  Integer musicId);
     
     @Delete("Delete from StarMusic where musicId = #{musicId} and userId=#{userId}")
     int delete(@Param("musicId")  Integer musicId,@Param("userId") Integer userId);  
