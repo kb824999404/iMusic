@@ -188,7 +188,7 @@ class AccountController {
 
     @PostMapping("/uploadAvatar")
     @ResponseBody
-    public Map<String, Object> upload(@RequestParam("file") MultipartFile file) {
+    public Map<String, Object> uploadAvatar(@RequestParam("file") MultipartFile file) {
 
         Map<String, Object> result = new HashMap<>();
         if (file.isEmpty()) {
@@ -208,7 +208,7 @@ class AccountController {
             System.out.println(path.getAbsolutePath());
             File upload = new File(path.getAbsolutePath(), "static/avatar/");
             if (!upload.exists()) upload.mkdirs();
-            String uploadPath = upload + "\\";
+            String uploadPath = upload + "/";
             String uuid = UUID.randomUUID().toString().replaceAll("-", "");
 
 

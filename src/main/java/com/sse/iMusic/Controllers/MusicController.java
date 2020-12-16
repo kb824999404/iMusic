@@ -367,7 +367,7 @@ class MusicController {
             System.out.println(path.getAbsolutePath());
             File upload = new File(path.getAbsolutePath(), "static/uploadMusic/");
             if (!upload.exists()) upload.mkdirs();
-            String uploadPath = upload + "\\";
+            String uploadPath = upload + "/";
             String uuid = UUID.randomUUID().toString().replaceAll("-", "");
 
 
