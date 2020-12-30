@@ -1,0 +1,88 @@
+.Page{
+    padding: 2% 2%;
+    margin: 0;
+    background:linear-gradient(#f3f3f3,#fff);
+
+}
+.Page .title{
+    font-size: 36px;
+    color: #333;
+    padding: 2%;
+    margin:0;
+}
+
+/* 音乐 */
+.musicCard{
+    text-align: left;
+    padding: 10px;
+}
+
+.musicImg{
+    width: 100px;
+    height: 100px;
+    background-color: #fff;
+    box-shadow: 0 2px 10px 0 rgba(0,0,0,.15);
+    
+}
+.musicInfo{
+    padding: 20px;
+    display:flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+.musicInfo .el-button{
+    margin: 0;
+    padding: 0;
+    font-size: medium;
+
+}
+.musicInfo .musicName{
+    color:#000;
+}
+.musicInfo .musicianName{
+    color: #999;
+    margin: 20px 0;
+}
+.musicLength{
+    text-align: right;
+    padding: 20px 0;
+    color: #999;
+}
+
+/* 音乐人 */
+.Musicians{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.musicianCard{
+    padding: 0;
+    width: 180px;
+    height: 270px;
+    box-shadow: 0 2px 10px 0 rgba(0,0,0,.15);
+    overflow: hidden;
+    background-color: #fff;
+    margin: 10px 20px;
+    
+}
+
+.musicianImg{
+    width: 180px;
+    height: 180px;
+    background-color: #f3f3f3;
+}
+.musicianCard p{
+    margin: 10px;
+    text-align: center;
+}
+.musicianCard .musicianName{
+    color: #999;
+}
+.musicianName{
+    font-size: large;
+    font-weight: 600;
+}
+.musicianCountry{
+    font-size: medium;
+}

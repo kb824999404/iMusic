@@ -1,0 +1,55 @@
+
+
+.my-page {
+  margin-top: header-height;
+  padding-top: 150px;
+  background-color: theme-background-color;
+
+  
+   
+    background-color: theme-color;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: header-height + 150px;
+  }
+
+
+/*左侧*/
+.album-slide {
+  float: left;
+  width: 400px;
+}
+  .album-img {
+    height: 200px;
+    width: 200px;
+    display: inline-block;
+    position: relative;
+    top: -100px;
+    left: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 5px solid color-white;
+  
+    
+  }
+.album-img img {width: 100%;}
+  /*信息*/
+  .album-info {
+    color: color-black;
+    width: 500px;
+    font-size: 20px;
+    font-weight: 500;
+    margin-top: -100px;
+    margin-left: 100px;
+    padding: 30px 30px;
+    
+  
+}
+
+.album-info li {
+    width: 100%;
+    line-height: 40px;
+  }
+
+

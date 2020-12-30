@@ -1,0 +1,73 @@
+/*导航栏*/
+.navbar {
+    top: 0;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    transition: .3s;
+}
+
+/*文字*/
+.navbar a{
+    font-size: large;
+    color: #000;
+    display: block;
+    text-decoration: none;
+}
+.navbar a:hover{
+    color:#409EFF;
+}
+
+/*导航栏项*/
+.navbar-item{
+    padding: 20px 30px;
+    height: auto !important;
+}
+
+.el-menu-item.navbar-item.is-active {
+    border:none !important;
+    outline: none !important;
+    background-color: #409EFF;
+}
+.el-menu-item.navbar-item.is-active a{
+    color:#fff;
+}
+
+/*菜单栏空项*/
+.navbar .navbar-item-blank-left {
+    width:150px;
+}
+.navbar .navbar-item-blank-center {
+    flex-grow: 1;
+    padding: 0 20px;
+}
+.navbar .navbar-item-blank-right {
+    width:150px;
+}
+
+/*搜索输入框按钮*/
+.el-button.search-button {
+    margin-right: 10px;
+}
+
+/* 下拉菜单 */
+.el-menu.el-menu--popup .navbar-item a{
+    text-decoration: none;
+    color:#999;
+}
+.el-menu.el-menu--popup .navbar-item a:hover{
+    color:#333;
+}
+.el-menu.el-menu--popup .navbar-item a{
+    padding-left: 20px;
+}
+
+/* 头像 */
+.avatar{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}

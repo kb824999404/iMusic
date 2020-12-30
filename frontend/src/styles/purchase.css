@@ -1,0 +1,107 @@
+.top {
+    width: 1400px;
+    height: 130px;
+    margin: 0 auto;
+}
+
+.whole {
+    width: 1100px;
+    height: 450px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.commentSection {
+    width: 1100px;
+    margin: 0 auto;
+}
+
+.goodImage img {
+    height: 400px;
+    width: 400px;
+    border-width: 1px;
+    border-color: grey;
+    float: left;
+}
+
+.info {
+    float: right;
+    border-width: 1px;
+    border-color: grey;
+    height: 400px;
+    width: 60%;
+    margin-left: 10px;
+}
+
+.searchBox {
+    transform: translateY(-100%);
+    text-align: center;
+}
+
+.textBox {
+    background: rgba(255, 255, 255, 5);
+    border-radius: 6px;
+    width: 500px;
+    padding: 0 16px;
+    height: 35px;
+    box-sizing: border-box;
+    outline: none;
+    border-width: 1px;
+    border-color: grey;
+    font-family: "montserrat", sans-serif;
+}
+
+.searchButton {
+    width: 50px;
+    height: 37px;
+    background: grey;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.goodName {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.typeInfo {
+    float: left;
+    font-size: 15px;
+    color: grey;
+    margin-top: 15px;
+    margin-left: 8px;
+}
+
+.price {
+    float: right;
+    width: 85%;
+    font-size: 30px;
+    color: blue;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.evaluation {
+    color: rgb(255, 172, 45);
+    font-size: 20px;
+    float: right;
+    width: 85%;
+    margin-top: 13px;
+}
+
+.numBox {
+    float: right;
+    width: 85%;
+    margin-top: 8px;
+}
+
+.addShoppingCart {
+    width: 200px;
+    height: 50px;
+    background-color: blue;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    border-width: 0;
+}
